@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:instagrambloc/features/globels.dart';
+import 'package:instagrambloc/core/globels.dart';
+import 'package:instagrambloc/core/services/token_service/token_service.dart';
 
 class SpalshScreen extends StatefulWidget {
   SpalshScreen({super.key});
@@ -12,14 +13,18 @@ class SpalshScreen extends StatefulWidget {
 class _SpalshScreenState extends State<SpalshScreen> {
   bool isScale = false;
 
-  changeScreen() {
+  final tokenService = TokenService();
+
+  changeScreen() async {
     Future.delayed(Duration(milliseconds: 600), () {
       isScale = true;
       setState(() {});
     });
-    Future.delayed(Duration(seconds: 5), () {
-      goRouter.goNamed(Routes.signUpScreen.name);
-    });
+    if (await tokenService.refreshToken != null) {
+      goRouter.goNamed(Routes.homeScreen.name);
+    } else {
+      goRouter.goNamed(Routes.signInScreen.name);
+    }
   }
 
   @override

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:instagrambloc/features/extenstion/number_extension.dart';
-import 'package:instagrambloc/features/globels.dart';
+import 'package:instagrambloc/core/extenstion/number_extension.dart';
+import 'package:instagrambloc/core/globels.dart';
 import 'package:instagrambloc/features/profile_setup/bloc/profile_bloc.dart';
 import 'package:instagrambloc/features/profile_setup/bloc/profile_event.dart';
 import 'package:instagrambloc/features/profile_setup/bloc/profile_state.dart';

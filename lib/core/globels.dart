@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:instagrambloc/features/authentication/pages/home_screen.dart';
+import 'package:instagrambloc/features/home/home_screen.dart';
 import 'package:instagrambloc/features/authentication/pages/sign_in_screen.dart';
 import 'package:instagrambloc/features/authentication/pages/sign_up_screen.dart';
 import 'package:instagrambloc/features/authentication/pages/spalsh_screen.dart';
@@ -14,7 +14,6 @@ enum Routes {
 }
 
 GoRouter goRouter = GoRouter(
-  initialLocation: "/profileScreen",
   routes: [
     GoRoute(
       path: "/",
