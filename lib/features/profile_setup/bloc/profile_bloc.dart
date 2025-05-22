@@ -13,6 +13,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc(this.repository) : super(InitilState()) {
     on<FetchImage>(_fetchImage);
     on<CheckUsername>(_onCheckUsername);
+    on<ProceedEvent>(_onProcessEvent);
   }
 
   _fetchImage(FetchImage event, Emitter emit) async {
@@ -32,6 +33,26 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(UsernameAvailable());
     } catch (e) {
       emit(UsernameNotAvailable());
+    }
+  }
+
+  _onProcessEvent(ProceedEvent event, Emitter emit) async {
+    emit(Processing());
+
+    try {
+      if (image != null) {
+        await repository.uploadProfilePic(image!);
+      }
+
+      await repository.registerProfile(
+        name: event.name,
+        username: event.username,
+        bio: event.bio,
+      );
+
+      emit(ProcessSuccess());
+    } catch (e) {
+      emit(ProcessFailed(e.toString()));
     }
   }
 }

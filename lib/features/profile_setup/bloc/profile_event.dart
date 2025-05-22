@@ -19,4 +19,18 @@ class CheckUsername extends ProfileEvent {
   List<Object?> get props => [username];
 }
 
-class ProceedEvent extends ProfileEvent {}
+class ProceedEvent extends ProfileEvent {
+  final String name;
+  final String username;
+  final String bio;
+
+  const ProceedEvent({
+    required this.name,
+    required this.bio,
+    required this.username,
+  });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [name, username, bio];
+}

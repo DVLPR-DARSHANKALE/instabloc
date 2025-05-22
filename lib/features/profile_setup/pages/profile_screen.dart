@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instagrambloc/core/extenstion/number_extension.dart';
 import 'package:instagrambloc/core/globels.dart';
 import 'package:instagrambloc/core/services/token_service/token_service.dart';
+import 'package:instagrambloc/features/authentication/pages/sign_up_screen.dart';
 import 'package:instagrambloc/features/profile_setup/bloc/profile_bloc.dart';
 import 'package:instagrambloc/features/profile_setup/bloc/profile_event.dart';
 import 'package:instagrambloc/features/profile_setup/bloc/profile_state.dart';
@@ -23,7 +24,13 @@ class ProfileScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProfileBloc(ProfileRepository(TokenService())),
       child: BlocListener<ProfileBloc, ProfileState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is ProcessSuccess) {
+            goRouter.goNamed(Routes.homeScreen.name);
+          } else if (state is ProcessFailed) {
+            displaySnakbar(context, state.error, Colors.red);
+          }
+        },
         child: Builder(
           builder: (context) {
             return Scaffold(
@@ -220,25 +227,31 @@ class ProfileScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         height: 50.h,
-                        child: BlocBuilder<ProfileBloc, ProfileState>(
-                          builder: (context, state) {
-                            if (state is LoadingState) {
-                              return CircularProgressIndicator();
-                            }
-                            return FilledButton(
-                              style: ButtonStyle(
-                                backgroundColor: WidgetStatePropertyAll(
-                                  Colors.blue,
+                        child: FilledButton(
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStatePropertyAll(
+                              Colors.blue,
+                            ),
+                          ),
+                          onPressed: () {
+                            if (_fromkey.currentState!.validate()) {
+                              context.read<ProfileBloc>().add(
+                                ProceedEvent(
+                                  name: namefield.text,
+                                  bio: biofield.text,
+                                  username: usernamefield.text,
                                 ),
-                              ),
-                              onPressed: () {
-                                if (_fromkey.currentState!.validate()) {
-                                  goRouter.goNamed(Routes.homeScreen.name);
-                                }
-                              },
-                              child: Text("Procced"),
-                            );
+                              );
+                            }
                           },
+                          child: BlocBuilder<ProfileBloc, ProfileState>(
+                            builder: (context, state) {
+                              if (state is Processing) {
+                                return CircularProgressIndicator();
+                              }
+                              return Text("Procced");
+                            },
+                          ),
                         ),
                       ),
                     ],

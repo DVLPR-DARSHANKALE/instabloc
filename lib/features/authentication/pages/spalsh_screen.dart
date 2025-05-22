@@ -26,7 +26,7 @@ class _SpalshScreenState extends State<SpalshScreen> {
       listener: (context, state) {
         // TODO: implement listener
         if (state is TokenRefreshedSuccessfully) {
-          goRouter.goNamed(Routes.homeScreen.name);
+          goRouter.goNamed(Routes.profileScreen.name);
         } else if (state is TokenRefreshError) {
           goRouter.goNamed(Routes.signInScreen.name);
         }

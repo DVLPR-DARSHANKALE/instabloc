@@ -29,3 +29,16 @@ class ErrorState extends ProfileState {
 class UsernameAvailable extends ProfileState {}
 
 class UsernameNotAvailable extends ProfileState {}
+
+class Processing extends ProfileState {}
+
+class ProcessSuccess extends ProfileState {}
+
+class ProcessFailed extends ProfileState {
+  final String error;
+
+  const ProcessFailed(this.error);
+
+  @override
+  List<Object?> get props => [error];
+}
