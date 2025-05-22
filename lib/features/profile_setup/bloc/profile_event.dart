@@ -9,3 +9,14 @@ abstract class ProfileEvent extends Equatable {
 }
 
 class FetchImage extends ProfileEvent {}
+
+class CheckUsername extends ProfileEvent {
+  final String username;
+
+  const CheckUsername(this.username);
+
+  @override
+  List<Object?> get props => [username];
+}
+
+class ProceedEvent extends ProfileEvent {}

@@ -23,4 +23,10 @@ class TokenService {
     _refreshToken = refreshToken;
     storage.write(key: "refreshToken", value: refreshToken);
   }
+
+  deleteTokens() {
+    _accessToken = null;
+    _refreshToken = null;
+    storage.delete(key: "refreshToken");
+  }
 }

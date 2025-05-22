@@ -25,3 +25,7 @@ class ErrorState extends ProfileState {
   @override
   List<Object?> get props => [error];
 }
+
+class UsernameAvailable extends ProfileState {}
+
+class UsernameNotAvailable extends ProfileState {}

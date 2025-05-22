@@ -34,3 +34,9 @@ class SignInFailure extends AuthState {
   @override
   List<Object?> get props => [message];
 }
+
+class TokenRefreshedSuccessfully extends AuthState {}
+
+class TokenRefreshError extends AuthState {}
+
+class SignOutSuccessfull extends AuthState {}

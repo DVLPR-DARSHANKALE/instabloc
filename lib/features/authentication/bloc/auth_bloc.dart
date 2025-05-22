@@ -9,6 +9,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this.repository) : super(InitialState()) {
     on<SignUpEvent>(_onSignUpEvent);
     on<SignInEvent>(_onSignInEvent);
+    on<RefreshTokenEvent>(_onRefreshTokenEvent);
+    on<SignOutEvent>(_onSignOutEvent);
   }
 
   _onSignUpEvent(SignUpEvent event, Emitter emit) async {
@@ -29,5 +31,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(SignInFailure(e.toString()));
     }
+  }
+
+  _onRefreshTokenEvent(RefreshTokenEvent event, Emitter emit) async {
+    try {
+      await repository.refreshToken();
+      emit(TokenRefreshedSuccessfully());
+    } catch (e) {
+      emit(TokenRefreshError());
+    }
+  }
+
+  _onSignOutEvent(SignOutEvent event, Emitter emit) async {
+    try {
+      await repository.signOut();
+      emit(SignOutSuccessfull());
+    } catch (e) {}
   }
 }
