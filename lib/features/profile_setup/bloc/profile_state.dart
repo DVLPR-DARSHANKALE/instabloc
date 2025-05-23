@@ -8,13 +8,15 @@ abstract class ProfileState extends Equatable {
   List<Object?> get props => [];
 }
 
-class LoadingState extends ProfileState {}
-
 class InitilState extends ProfileState {}
 
-class LoadedState extends ProfileState {
+class PickImageState extends ProfileState {}
+
+class ImageLoadingState extends PickImageState {}
+
+class ImageLoadedState extends PickImageState {
   final File image;
-  const LoadedState(this.image);
+  ImageLoadedState(this.image);
   @override
   List<Object?> get props => [image];
 }
@@ -26,18 +28,22 @@ class ErrorState extends ProfileState {
   List<Object?> get props => [error];
 }
 
-class UsernameAvailable extends ProfileState {}
+class UsernameState extends ProfileState {}
 
-class UsernameNotAvailable extends ProfileState {}
+class UsernameAvailable extends UsernameState {}
 
-class Processing extends ProfileState {}
+class UsernameNotAvailable extends UsernameState {}
 
-class ProcessSuccess extends ProfileState {}
+class Process extends ProfileState {}
 
-class ProcessFailed extends ProfileState {
+class ProcessLoading extends Process {}
+
+class ProcessSuccess extends Process {}
+
+class ProcessFailed extends Process {
   final String error;
 
-  const ProcessFailed(this.error);
+  ProcessFailed(this.error);
 
   @override
   List<Object?> get props => [error];

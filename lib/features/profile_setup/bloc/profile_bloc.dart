@@ -17,13 +17,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   _fetchImage(FetchImage event, Emitter emit) async {
-    emit(LoadingState());
+    emit(ImageLoadingState());
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
     if (pickedFile != null) {
       image = File(pickedFile.path);
-      emit(LoadedState(image!));
+      emit(ImageLoadedState(image!));
     }
   }
 
@@ -37,7 +37,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   _onProcessEvent(ProceedEvent event, Emitter emit) async {
-    emit(Processing());
+    emit(ProcessLoading());
 
     try {
       if (image != null) {

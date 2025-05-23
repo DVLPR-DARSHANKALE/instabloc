@@ -54,10 +54,13 @@ class ProfileScreen extends StatelessWidget {
                       30.heighbox,
                       Center(
                         child: BlocBuilder<ProfileBloc, ProfileState>(
+                          buildWhen:
+                              (previous, current) => current is PickImageState,
                           builder: (context, state) {
-                            if (state is LoadingState) {
+                            print("Building Image Picker ");
+                            if (state is ImageLoadingState) {
                               return CircularProgressIndicator();
-                            } else if (state is LoadedState) {
+                            } else if (state is ImageLoadedState) {
                               return Stack(
                                 clipBehavior: Clip.none,
                                 alignment: Alignment.bottomRight,
@@ -184,7 +187,10 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                       BlocBuilder<ProfileBloc, ProfileState>(
+                        buildWhen:
+                            (previous, current) => current is UsernameState,
                         builder: (context, state) {
+                          print("Building username ");
                           if (state is UsernameAvailable) {
                             return Text(
                               "Username is available",
@@ -245,8 +251,10 @@ class ProfileScreen extends StatelessWidget {
                             }
                           },
                           child: BlocBuilder<ProfileBloc, ProfileState>(
+                            buildWhen: (context, current) => current is Process,
                             builder: (context, state) {
-                              if (state is Processing) {
+                              print("Building prcessing button");
+                              if (state is ProcessLoading) {
                                 return CircularProgressIndicator();
                               }
                               return Text("Procced");
