@@ -1,43 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:instagrambloc/features/globels.dart';
+import 'package:instagrambloc/core/const/utility/globels.dart';
+import 'package:instagrambloc/features/authentication/bloc/auth_bloc.dart';
+import 'package:instagrambloc/features/authentication/bloc/auth_event.dart';
+import 'package:instagrambloc/features/authentication/bloc/auth_state.dart';
 
 class SpalshScreen extends StatefulWidget {
-  SpalshScreen({super.key});
+  const SpalshScreen({super.key});
 
   @override
   State<SpalshScreen> createState() => _SpalshScreenState();
 }
 
 class _SpalshScreenState extends State<SpalshScreen> {
-  bool isScale = false;
-
-  changeScreen() {
-    Future.delayed(Duration(milliseconds: 600), () {
-      isScale = true;
-      setState(() {});
-    });
-    Future.delayed(Duration(seconds: 5), () {
-      goRouter.goNamed(Routes.signUpScreen.name);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    changeScreen();
-    return Scaffold(
-      body: Center(
-        child: AnimatedScale(
-          duration: Duration(microseconds: 600),
-          scale: isScale ? 1 : 0,
-          child: Container(
-            height: double.infinity,
-            width: double.infinity,
-            child: Image.network(
-              "https://cdn.abicart.com/shop/images/191459821-origpic-61f31d/ws89/120689/art89/h9821/instagram-logo.png",
-              fit: BoxFit.scaleDown,
-              height: 300.h,
-              width: 300.w,
+    Future.delayed(Duration(seconds: 2), () {
+      context.read<AuthBloc>().add(TokenEvent());
+    });
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is TokenSuccessState) {
+          goRouter.goNamed(Routes.profileScreen.name);
+        } else if (state is TokenErrorState) {
+          goRouter.goNamed(Routes.signInScreen.name);
+        }
+      },
+      child: Scaffold(
+        body: Center(
+          child: AnimatedScale(
+            duration: Duration(microseconds: 600),
+            scale: 1,
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              child: Image.network(
+                "https://cdn.abicart.com/shop/images/191459821-origpic-61f31d/ws89/120689/art89/h9821/instagram-logo.png",
+                fit: BoxFit.scaleDown,
+                height: 200.h,
+                width: 200.w,
+              ),
             ),
           ),
         ),

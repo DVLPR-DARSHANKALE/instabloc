@@ -8,20 +8,47 @@ abstract class ProfileState extends Equatable {
   List<Object?> get props => [];
 }
 
-class LoadingState extends ProfileState {}
-
 class InitilState extends ProfileState {}
+// _____________________________________________________//
 
-class LoadedState extends ProfileState {
+class ImagepickState extends ProfileState {}
+
+class ImageLoading extends ImagepickState {}
+
+class ImageLoaded extends ImagepickState {
   final File image;
-  const LoadedState(this.image);
+  ImageLoaded(this.image);
   @override
   List<Object?> get props => [image];
 }
 
-class ErrorState extends ProfileState {
+class ImageError extends ImagepickState {
   final String error;
-  const ErrorState(this.error);
+  ImageError(this.error);
   @override
   List<Object?> get props => [error];
 }
+// _____________________________________________________//
+
+class UsernameState extends ProfileState {}
+
+class UserNameAvailable extends UsernameState {}
+
+class UserNameNotAvailable extends UsernameState {}
+
+// _____________________________________________________//
+
+class ProccedButtonState extends ProfileState {}
+
+class ProccedSuccessState extends ProccedButtonState {}
+
+class ProccedLoadingState extends ProccedButtonState {}
+
+class ProccedErrorState extends ProccedButtonState {
+  final String error;
+  ProccedErrorState(this.error);
+  @override
+  List<Object?> get props => [error];
+}
+
+// _____________________________________________________//
