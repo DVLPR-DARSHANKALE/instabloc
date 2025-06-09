@@ -1,14 +1,14 @@
 import 'package:go_router/go_router.dart';
 import 'package:instagrambloc/core/const/services/token_services.dart';
-import 'package:instagrambloc/features/home/pages/add_post_screen.dart';
+import 'package:instagrambloc/features/add_post/pages/add_post_screen.dart';
 import 'package:instagrambloc/features/home/pages/home_screen.dart';
 import 'package:instagrambloc/features/authentication/pages/sign_in_screen.dart';
 import 'package:instagrambloc/features/authentication/pages/sign_up_screen.dart';
 import 'package:instagrambloc/features/authentication/pages/spalsh_screen.dart';
-import 'package:instagrambloc/features/home/pages/insta_profile.dart';
+import 'package:instagrambloc/features/insta_profile/pages/insta_profile.dart';
 import 'package:instagrambloc/features/bottom_navi/pages/navi_bar.dart';
 import 'package:instagrambloc/features/home/pages/search_screen.dart';
-import 'package:instagrambloc/features/message/pages/chattingScreen.dart';
+import 'package:instagrambloc/features/message/pages/chattingscreen.dart';
 import 'package:instagrambloc/features/message/pages/message_screen.dart';
 import 'package:instagrambloc/features/profile_setup/pages/profile_setup.dart';
 import 'package:logger/logger.dart';
@@ -30,7 +30,6 @@ enum Routes {
 }
 
 GoRouter goRouter = GoRouter(
-  initialLocation: "/homeScreen",
   routes: [
     ShellRoute(
       builder: (context, state, child) => NaviBar(child: child),

@@ -22,7 +22,7 @@ class _SpalshScreenState extends State<SpalshScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is TokenSuccessState) {
-          goRouter.goNamed(Routes.profileScreen.name);
+          goRouter.goNamed(Routes.homeScreen.name);
         } else if (state is TokenErrorState) {
           goRouter.goNamed(Routes.signInScreen.name);
         }
